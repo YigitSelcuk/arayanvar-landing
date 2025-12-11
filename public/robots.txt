@@ -1,0 +1,12 @@
+# Arayanvar - robots.txt
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://arayanvar.com/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 1
