@@ -2,7 +2,7 @@ module.exports = {
   apps: [{
     name: 'arayanvar-landing',
     script: 'npx',
-    args: 'serve -s dist -l 3001',
+    args: 'serve -s dist -l 3002',
     instances: 1,
     autorestart: true,
     watch: false,
