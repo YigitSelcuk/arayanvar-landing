@@ -125,7 +125,7 @@ const PrivacyPolicy = () => {
               Gizlilik politikamız hakkında sorularınız için bizimle iletişime geçebilirsiniz:
             </p>
             <div className="mt-4 p-4 bg-primary-50 rounded-lg">
-              <p className="text-gray-700"><strong>E-posta:</strong> privacy@arayanvar.com</p>
+              <p className="text-gray-700"><strong>E-posta:</strong> info@arayanvar.com</p>
               <p className="text-gray-700"><strong>Telefon:</strong> +90 555 123 45 67</p>
             </div>
           </section>
