@@ -1,5 +1,6 @@
-import { motion } from 'framer-motion'
-import { Star } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Star, ChevronLeft, ChevronRight } from 'lucide-react'
+import { useState, useEffect } from 'react'
 import AppleIcon from './icons/AppleIcon'
 import GooglePlayIcon from './icons/GooglePlayIcon'
 import resim1 from '../images/resim1.png'
@@ -8,6 +9,23 @@ import resim3 from '../images/resim3.png'
 import resim4 from '../images/resim4.png'
 
 const Hero = () => {
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const images = [resim1, resim2, resim3]
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % images.length)
+    }, 3000)
+    return () => clearInterval(timer)
+  }, [])
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % images.length)
+  }
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + images.length) % images.length)
+  }
   return (
     <div className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-white via-primary-50 to-primary-100">
       {/* Animated background elements */}
@@ -68,7 +86,51 @@ const Hero = () => {
               Topluluk gücüyle aradığınız her şeyi bulun!
             </p>
 
-          
+            {/* Mobile - Single Phone with Slider */}
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="relative flex lg:hidden justify-center items-center mb-8"
+            >
+              {/* Left Arrow - Outside Phone */}
+              <button
+                onClick={prevSlide}
+                className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/90 backdrop-blur-sm p-3 rounded-full shadow-lg hover:bg-white hover:scale-110 transition z-10"
+                aria-label="Previous slide"
+              >
+                <ChevronLeft className="w-6 h-6 text-gray-800" />
+              </button>
+
+              <div className="relative mx-12">
+                {/* Phone Mockup */}
+                <div className="w-64 h-[520px] bg-gray-900 rounded-[2.5rem] p-2.5 shadow-2xl">
+                  <div className="w-full h-full bg-white rounded-[2rem] overflow-hidden relative">
+                    <AnimatePresence mode="wait">
+                      <motion.img
+                        key={currentSlide}
+                        src={images[currentSlide]}
+                        alt={`App Screenshot ${currentSlide + 1}`}
+                        className="w-full h-full object-cover object-top"
+                        initial={{ opacity: 0, x: 100 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -100 }}
+                        transition={{ duration: 0.3 }}
+                      />
+                    </AnimatePresence>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Arrow - Outside Phone */}
+              <button
+                onClick={nextSlide}
+                className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/90 backdrop-blur-sm p-3 rounded-full shadow-lg hover:bg-white hover:scale-110 transition z-10"
+                aria-label="Next slide"
+              >
+                <ChevronRight className="w-6 h-6 text-gray-800" />
+              </button>
+            </motion.div>
 
             {/* Download Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
@@ -105,6 +167,7 @@ const Hero = () => {
           </motion.div>
 
           {/* Right Side - Phone Mockups */}
+          {/* Desktop - 3 Phones */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
@@ -164,6 +227,8 @@ const Hero = () => {
               </motion.div>
             </div>
           </motion.div>
+
+
         </div>
       </div>
     </div>
